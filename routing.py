@@ -6,7 +6,7 @@ ROUTING_TABLE = {
     "918595921795": {
         "client_name": "Ruchee",
         "assigned_to": "Saksham Malhotra",
-        "teams_webhook_url": "https://defaultf9cac348195d4c77ac88b33b9611e3.d5.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/16/workflows/1d5565186c124775b0aa1f29f94e2989/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=63XaWUHMLXQdl_SD9X2IEju4j55Zaj_E_uDSgUx1KI",
+        "teams_webhook_url": "https://defaultf9cac348195d4c77ac88b33b9611e3.d5.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/29/workflows/425b03d880c54b9c81c27adebafd934f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=jQI5SfazQuRvjnoVmx251K17sBt1zWR0XB0mCmAU1I",
     },
 
 }
@@ -15,7 +15,7 @@ ROUTING_TABLE = {
 DEFAULT_ROUTE = {
     "client_name": "Ruchee",
     "assigned_to": "Saksham Malhotra",
-    "teams_webhook_url": "https://defaultf9cac348195d4c77ac88b33b9611e3.d5.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/16/workflows/1d5565186c124775b0aa1f29f94e2989/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=63XaWUHMLXQdl_SD9X2IEju4j55Zaj_E_uDSgUx1KI",
+    "teams_webhook_url": "https://defaultf9cac348195d4c77ac88b33b9611e3.d5.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/29/workflows/425b03d880c54b9c81c27adebafd934f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=jQI5SfazQuRvjnoVmx251K17sBt1zWR0XB0mCmAU1I",
 }
 
 
