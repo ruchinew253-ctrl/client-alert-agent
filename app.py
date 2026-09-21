@@ -1,5 +1,5 @@
-# APP.PY -- Main webhook server (poora system ka dil)
-# Chalao: python app.py
+# APP.PY 
+#  python app.py
 
 import os
 from flask import Flask, request
@@ -10,7 +10,7 @@ from teams import send_to_teams
 
 app = Flask(__name__)
 
-# Meta ke "verify token" box me BILKUL YEHI daalna hai
+# Meta "verify token" 
 VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN", "myClientAlert2026")
 
 
@@ -46,7 +46,7 @@ def receive():
         else:
             text = "[Non-text message: " + message.get("type", "unknown") + "]"
 
-        print("\n--- NAYA MESSAGE ---")
+        print("\n--- NEW MESSAGE ---")
         print("From:", sender)
         print("Text:", text)
 
@@ -65,10 +65,10 @@ def receive():
                 analysis=analysis,
             )
         else:
-            print("[SKIP] Important nahi -- koi alert nahi")
+            print("[SKIP] Not Important -- No alert")
 
     except Exception as e:
-        print("[ERROR] Message process karte waqt:", e)
+        print("[ERROR] During Message processing :", e)
 
     return "ok", 200
 
