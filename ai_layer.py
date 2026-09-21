@@ -24,9 +24,6 @@ URGENT_WORDS = [
     "reminder",
     "pending",
     "important",
-    "jaldi",
-    "turant",
-    "aaj",
 ]
 
 ACTION_WORDS = [
@@ -44,16 +41,13 @@ ACTION_WORDS = [
     "meeting",
     "submit",
     "provide",
-    "bhejo",
-    "chahiye",
-    "karo",
 ]
 
 
 def keyword_analysis(message_text):
     """
-    Agar OpenAI available nahi hai,
-    to simple keywords ke basis par message analyse karega.
+    If OpenAI is not available,
+    analyse message on basis of simple words.
     """
 
     text = message_text.lower()
