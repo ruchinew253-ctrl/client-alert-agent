@@ -1,5 +1,5 @@
-# ROUTING TABLE -- kis client ka message kis bande ke Teams pe jayega
-# Confidentiality ka logic yahin hai.
+# ROUTING TABLE
+# Confidentiality logic
 
 ROUTING_TABLE = {
 
