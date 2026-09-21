@@ -1,43 +1,109 @@
 import requests
+import os
+import json
+
 
 STYLE = {
-    "High": "🔴",
-    "Medium": "🟠",
-    "Low": "🟢",
+    "High": {
+        "color": "D93025",
+        "emoji": "🔴"
+    },
+    "Medium": {
+        "color": "F9AB25",
+        "emoji": "🟡"
+    },
+    "Low": {
+        "color": "1E8E3E",
+        "emoji": "🟢"
+    }
 }
 
 
 def send_to_teams(webhook_url, client_name, assigned_to, sender, analysis):
-    if not webhook_url or "PASTE_" in webhook_url:
+
+    if not webhook_url or "PASTE" in webhook_url:
         print(f"[SKIP] Teams webhook URL set nahi hai for {assigned_to}")
         return False
 
     urgency = analysis.get("urgency", "Low")
-    emoji = STYLE.get(urgency, "🟢")
+    style = STYLE.get(urgency, STYLE["Low"])
 
     text = (
-        f"{emoji} **{urgency} Priority Client Alert**\n\n"
+        f"{style['emoji']} **{urgency} Priority Client Alert**\n\n"
         f"**Client:** {client_name}\n"
         f"**Assigned to:** {assigned_to}\n"
         f"**From:** {sender}\n"
         f"**Summary:** {analysis.get('summary', '')}\n"
-        f"**Action:** {analysis.get('action', '')}"
+        f"**Suggested Action:** {analysis.get('action', '')}"
     )
 
-    payload = {"text": text}
+    payload = {
+        "type": "message",
+        "attachments": [
+            {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    "type": "AdaptiveCard",
+                    "version": "1.4",
+                    "body": [
+                        {
+                            "type": "TextBlock",
+                            "text": f"{style['emoji']} {urgency} Priority Client Alert",
+                            "weight": "Bolder",
+                            "size": "Medium",
+                            "wrap": True
+                        },
+                        {
+                            "type": "FactSet",
+                            "facts": [
+                                {
+                                    "title": "Client:",
+                                    "value": client_name
+                                },
+                                {
+                                    "title": "Assigned To:",
+                                    "value": assigned_to
+                                },
+                                {
+                                    "title": "From:",
+                                    "value": sender
+                                },
+                                {
+                                    "title": "Summary:",
+                                    "value": analysis.get("summary", "")
+                                },
+                                {
+                                    "title": "Action:",
+                                    "value": analysis.get("action", "")
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "text": text
+    }
 
     try:
-        r = requests.post(webhook_url, json=payload, timeout=15)
-
-        print(f"[DEBUG] Status: {r.status_code}")
-        print(f"[DEBUG] Response: {r.text[:300]}")
+        r = requests.post(
+            webhook_url,
+            json=payload,
+            timeout=15
+        )
 
         if r.status_code in (200, 202):
             print(f"[OK] Alert bhej diya -> {assigned_to} ({client_name})")
             return True
 
-        return False
+        else:
+            print(
+                f"[ERROR] Teams ne reject kiya: "
+                f"{r.status_code} {r.text}"
+            )
+            return False
 
     except Exception as e:
-        print("[ERROR] Teams pe bhejte waqt problem:", e)
+        print(f"[ERROR] Teams pe bhejte waqt problem: {e}")
         return False
