@@ -22,7 +22,7 @@ STYLE = {
 def send_to_teams(webhook_url, client_name, assigned_to, sender, analysis):
 
     if not webhook_url or "PASTE" in webhook_url:
-        print(f"[SKIP] Teams webhook URL set nahi hai for {assigned_to}")
+        print(f"[SKIP] Teams webhook URL is not set for {assigned_to}")
         return False
 
     urgency = analysis.get("urgency", "Low")
@@ -94,16 +94,16 @@ def send_to_teams(webhook_url, client_name, assigned_to, sender, analysis):
         )
 
         if r.status_code in (200, 202):
-            print(f"[OK] Alert bhej diya -> {assigned_to} ({client_name})")
+            print(f"[OK] Alert sent -> {assigned_to} ({client_name})")
             return True
 
         else:
             print(
-                f"[ERROR] Teams ne reject kiya: "
+                f"[ERROR] Teams rejected: "
                 f"{r.status_code} {r.text}"
             )
             return False
 
     except Exception as e:
-        print(f"[ERROR] Teams pe bhejte waqt problem: {e}")
+        print(f"[ERROR] problem while sending teams: {e}")
         return False
